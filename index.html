@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>HCMC Metro - Vé tàu điện</title>
+    <title>Đăng nhập - HCMC Metro</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -18,140 +18,134 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
+    <header id="main-header">
       <div class="container header-content">
-        <a href="#" class="logo">
-          <i class="fa-solid fa-train-subway"></i> HCMC METRO
-        </a>
+        <a href="index.html" class="logo"
+          ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
+        >
         <div class="mobile-menu-btn" onclick="toggleMenu()">
           <i class="fa-solid fa-bars"></i>
         </div>
         <nav class="nav-links" id="navLinks">
-          <a href="#">Trang chủ</a>
-          <a href="#">Bản đồ</a>
-          <a href="#">Tin tức</a>
-          <a href="#">Hỗ trợ</a>
-          <a href="#" class="btn-login">Đăng nhập</a>
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="booking.html">Mua vé</a>
+          <a href="tin-tuc.html">Tin tức</a>
+          <a href="ho-tro.html">Hỗ trợ</a>
+          <a href="login.html" class="btn-login active-btn">Đăng nhập</a>
         </nav>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="hero-overlay"></div>
-      <div class="container hero-text">
-        <h1>Di chuyển thông minh<br />Cùng Metro Connect</h1>
-        <p>Chào mừng, Phúc Hải!</p>
+    <section class="auth-section">
+      <div class="auth-overlay"></div>
+
+      <div class="auth-container">
+        <div class="auth-box">
+          <div class="auth-tabs">
+            <button class="tab-btn active" onclick="switchTab('login')">
+              Đăng nhập
+            </button>
+            <button class="tab-btn" onclick="switchTab('register')">
+              Đăng ký
+            </button>
+          </div>
+
+          <form id="login-form" class="auth-form active-form">
+            <h2>Chào mừng trở lại!</h2>
+            <p class="auth-desc">Nhập thông tin để truy cập ví vé của bạn.</p>
+
+            <div class="input-field">
+              <i class="fa-solid fa-envelope"></i>
+              <input
+                type="email"
+                placeholder="Email hoặc Số điện thoại"
+                required
+              />
+            </div>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="login-pass"
+                placeholder="Mật khẩu"
+                required
+              />
+              <i
+                class="fa-solid fa-eye show-pass"
+                onclick="togglePass('login-pass')"
+              ></i>
+            </div>
+
+            <div class="form-options">
+              <label><input type="checkbox" /> Ghi nhớ tôi</label>
+              <a href="#">Quên mật khẩu?</a>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="demoLogin()">
+              ĐĂNG NHẬP
+            </button>
+
+            <div class="social-login">
+              <p>Hoặc đăng nhập bằng</p>
+              <div class="social-icons">
+                <a href="#" class="icon-google"
+                  ><i class="fa-brands fa-google"></i
+                ></a>
+                <a href="#" class="icon-facebook"
+                  ><i class="fa-brands fa-facebook-f"></i
+                ></a>
+              </div>
+            </div>
+          </form>
+
+          <form id="register-form" class="auth-form">
+            <h2>Tạo tài khoản mới</h2>
+            <p class="auth-desc">
+              Đăng ký để tích điểm và đi tàu tiện lợi hơn.
+            </p>
+
+            <div class="input-field">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" placeholder="Họ và tên" required />
+            </div>
+
+            <div class="input-field">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" placeholder="Số điện thoại" required />
+            </div>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="reg-pass"
+                placeholder="Mật khẩu"
+                required
+              />
+              <i
+                class="fa-solid fa-eye show-pass"
+                onclick="togglePass('reg-pass')"
+              ></i>
+            </div>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" placeholder="Nhập lại mật khẩu" required />
+            </div>
+
+            <button
+              type="button"
+              class="btn-submit"
+              onclick="alert('Đăng ký thành công!')"
+            >
+              ĐĂNG KÝ NGAY
+            </button>
+          </form>
+        </div>
       </div>
     </section>
 
-    <div class="main-content">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="icon-box"><i class="fa-solid fa-ticket"></i></div>
-            <span>Mua vé</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
-            <span>Vé của tôi</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box"><i class="fa-solid fa-qrcode"></i></div>
-            <span>Đổi mã</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box">
-              <i class="fa-solid fa-circle-info"></i>
-            </div>
-            <span>Info Vé</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box">
-              <i class="fa-solid fa-map-location-dot"></i>
-            </div>
-            <span>Hành trình</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box">
-              <i class="fa-solid fa-mountain-sun"></i>
-            </div>
-            <span>Suối Tiên</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box">
-              <i class="fa-solid fa-credit-card"></i>
-            </div>
-            <span>VPBank</span>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box"><i class="fa-solid fa-user"></i></div>
-            <span>Tài khoản</span>
-          </div>
-        </div>
-
-        <h3 class="section-title">🔥 Vé nổi bật</h3>
-        <div class="ticket-list">
-          <div class="ticket-card">
-            <div class="ticket-info">
-              <i class="fa-solid fa-ticket ticket-icon"></i>
-              <div class="ticket-details">
-                <h3>Vé 1 ngày</h3>
-                <p>40.000 đ</p>
-              </div>
-            </div>
-            <button class="btn-buy">Mua ngay</button>
-          </div>
-
-          <div class="ticket-card">
-            <div class="ticket-info">
-              <i class="fa-solid fa-ticket ticket-icon"></i>
-              <div class="ticket-details">
-                <h3>Vé 3 ngày</h3>
-                <p>90.000 đ</p>
-              </div>
-            </div>
-            <button class="btn-buy">Mua ngay</button>
-          </div>
-
-          <div class="ticket-card">
-            <div class="ticket-info">
-              <i class="fa-solid fa-id-card ticket-icon"></i>
-              <div class="ticket-details">
-                <h3>Vé tháng</h3>
-                <p>300.000 đ</p>
-              </div>
-            </div>
-            <button class="btn-buy">Mua ngay</button>
-          </div>
-        </div>
-
-        <h3 class="section-title">🚉 Chọn ga khởi hành</h3>
-        <div class="station-list">
-          <div class="station-item">
-            <span class="station-name">Đi từ ga Bến Thành</span>
-            <span class="view-detail">Xem chi tiết</span>
-          </div>
-          <div class="station-item">
-            <span class="station-name">Đi từ ga Nhà hát Thành phố</span>
-            <span class="view-detail">Xem chi tiết</span>
-          </div>
-          <div class="station-item">
-            <span class="station-name">Đi từ ga Ba Son</span>
-            <span class="view-detail">Xem chi tiết</span>
-          </div>
-          <div class="station-item">
-            <span class="station-name">Đi từ ga Thảo Điền</span>
-            <span class="view-detail">Xem chi tiết</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      function toggleMenu() {
-        const nav = document.getElementById("navLinks");
-        nav.classList.toggle("active");
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

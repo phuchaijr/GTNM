@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hỗ trợ - HCMC Metro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="main-header">
+      <div class="container header-content">
+        <a href="index.html" class="logo"
+          ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
+        >
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="booking.html">Mua vé</a>
+          <a href="tin-tuc.html">Tin tức</a>
+          <a href="ho-tro.html" class="active">Hỗ trợ</a>
+          <a href="login.html" class="btn-login">Đăng nhập</a>
+        </nav>
+      </div>
+    </header>
+
+    <section
+      class="hero hero-small"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1920');
+      "
+    >
+      <div class="hero-overlay"></div>
+      <div class="container hero-text">
+        <h1>Trung tâm trợ giúp</h1>
+        <p>Chúng tôi có thể giúp gì cho bạn?</p>
+      </div>
+    </section>
+
+    <div class="main-content">
+      <div class="container support-layout">
+        <div class="faq-section">
+          <h2 class="section-title">Câu hỏi thường gặp</h2>
+
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-header">
+                Làm thế nào để mua vé trực tuyến?
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Bạn có thể truy cập trang "Mua vé", chọn ga đi, ga đến và
+                  thanh toán qua thẻ ngân hàng hoặc ví điện tử. Mã QR vé sẽ được
+                  gửi về email của bạn.
+                </p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                Tôi có thể hoàn vé đã mua không?
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Vé đã mua có thể được hoàn 90% giá trị nếu hủy trước giờ tàu
+                  chạy 30 phút. Vui lòng vào mục "Vé của tôi" để thực hiện.
+                </p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                Trẻ em có được miễn phí không?
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Trẻ em dưới 6 tuổi hoặc cao dưới 1.3m được miễn phí vé khi đi
+                  cùng người lớn.
+                </p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                Quy định mang hành lý lên tàu?
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Mỗi hành khách được mang tối đa 10kg hành lý xách tay. Không
+                  được mang chất cháy nổ, động vật sống (trừ chó dẫn đường).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-section">
+          <div class="contact-box">
+            <h3>Gửi yêu cầu hỗ trợ</h3>
+            <form class="contact-form">
+              <div class="input-field">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="Họ tên của bạn" />
+              </div>
+              <div class="input-field">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" placeholder="Email liên hệ" />
+              </div>
+              <div class="input-field">
+                <textarea
+                  placeholder="Nội dung cần hỗ trợ..."
+                  rows="4"
+                ></textarea>
+              </div>
+              <button type="button" class="btn-submit">GỬI YÊU CẦU</button>
+            </form>
+
+            <div class="contact-info">
+              <p><i class="fa-solid fa-phone"></i> Hotline: 1900 1234</p>
+              <p><i class="fa-solid fa-envelope"></i> support@hcmcmetro.vn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="height: 50px"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

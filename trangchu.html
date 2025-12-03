@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>HCMC Metro - Trang chủ</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="main-header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i class="fa-solid fa-train-subway"></i> HCMC METRO
+        </a>
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="index.html" class="active">Trang chủ</a>
+          <a href="booking.html">Mua vé</a>
+          <a href="tin-tuc.html">Tin tức</a>
+          <a href="ho-tro.html">Hỗ trợ</a>
+          <a href="login.html" class="btn-login">Đăng nhập</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-text">
+        <h1>Di chuyển thông minh<br />Cùng Metro Connect</h1>
+        <p>Chào mừng, Phúc Hải!</p>
+      </div>
+    </section>
+
+    <div class="main-content">
+      <div class="container">
+        <div class="features-grid">
+          <a
+            href="booking.html"
+            class="feature-item"
+            style="text-decoration: none"
+          >
+            <div class="icon-box"><i class="fa-solid fa-ticket"></i></div>
+            <span>Mua vé</span>
+          </a>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
+            <span>Vé của tôi</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-qrcode"></i></div>
+            <span>Đổi mã</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-circle-info"></i></div>
+            <span>Info Vé</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <span>Hành trình</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-mountain-sun"></i></div>
+            <span>Suối Tiên</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-credit-card"></i></div>
+            <span>VPBank</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-user"></i></div>
+            <span>Tài khoản</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">🔥 Vé nổi bật</h3>
+        <div class="ticket-list">
+          <div class="ticket-card">
+            <div class="ticket-info">
+              <i class="fa-solid fa-ticket ticket-icon"></i>
+              <div class="ticket-details">
+                <h3>Vé 1 ngày</h3>
+                <p>40.000 đ</p>
+              </div>
+            </div>
+            <button class="btn-buy">Mua ngay</button>
+          </div>
+          <div class="ticket-card">
+            <div class="ticket-info">
+              <i class="fa-solid fa-ticket ticket-icon"></i>
+              <div class="ticket-details">
+                <h3>Vé 3 ngày</h3>
+                <p>90.000 đ</p>
+              </div>
+            </div>
+            <button class="btn-buy">Mua ngay</button>
+          </div>
+        </div>
+
+        <h3 class="section-title">🗺️ Mạng lưới các ga (Tuyến số 1)</h3>
+        <div class="station-list-view">
+          <div class="list-item">
+            <span class="station-text"
+              >Ga 1: <b>Bến Thành</b>
+              <span class="badge-subway">Ngầm</span></span
+            >
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text"
+              >Ga 2: <b>Nhà hát Thành phố</b>
+              <span class="badge-subway">Ngầm</span></span
+            >
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text"
+              >Ga 3: <b>Ba Son</b> <span class="badge-subway">Ngầm</span></span
+            >
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+
+          <div class="list-item">
+            <span class="station-text">Ga 4: <b>Văn Thánh</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 5: <b>Tân Cảng</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 6: <b>Thảo Điền</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 7: <b>An Phú</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 8: <b>Rạch Chiếc</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 9: <b>Phước Long</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 10: <b>Bình Thái</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 11: <b>Thủ Đức</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 12: <b>Khu Công nghệ cao</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 13: <b>Đại học Quốc gia</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 14: <b>Bến xe Suối Tiên</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+        </div>
+
+        <div style="height: 60px"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

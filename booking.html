@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>HCMC Metro - Đặt vé</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="main-header">
+      <div class="container header-content">
+        <a href="index.html" class="logo"
+          ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
+        >
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="booking.html" class="active">Mua vé</a>
+          <a href="tin-tuc.html">Tin tức</a>
+          <a href="ho-tro.html">Hỗ trợ</a>
+          <a href="index.html" class="btn-login">Đăng nhập</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" style="height: 60vh">
+      <div class="hero-overlay"></div>
+      <div class="container hero-text">
+        <h1>Đặt vé trực tuyến</h1>
+        <p>Nhanh chóng - Tiện lợi - An toàn</p>
+      </div>
+    </section>
+
+    <div class="main-content">
+      <div class="container">
+        <div class="booking-wrapper">
+          <div class="booking-header">
+            <h2><i class="fa-solid fa-ticket"></i> ĐẶT VÉ TÀU METRO</h2>
+            <p>
+              <a href="index.html" style="color: #777; text-decoration: none"
+                >Trang chủ</a
+              >
+              > Mua vé
+            </p>
+          </div>
+
+          <div class="booking-grid">
+            <div class="booking-col left-col">
+              <h3>1. CHỌN HÀNH TRÌNH</h3>
+
+              <div class="route-select">
+                <div class="input-group">
+                  <i class="fa-solid fa-location-dot input-icon"></i>
+                  <select id="station-from" onchange="updateRouteText()">
+                    <option value="" disabled>Chọn ga đi...</option>
+                    <option value="Bến Thành" selected>Ga Bến Thành</option>
+                    <option value="Nhà hát Thành phố">
+                      Ga Nhà hát Thành phố
+                    </option>
+                    <option value="Ba Son">Ga Ba Son</option>
+                    <option value="Văn Thánh">Ga Văn Thánh</option>
+                    <option value="Tân Cảng">Ga Tân Cảng</option>
+                    <option value="Thảo Điền">Ga Thảo Điền</option>
+                    <option value="An Phú">Ga An Phú</option>
+                    <option value="Rạch Chiếc">Ga Rạch Chiếc</option>
+                    <option value="Phước Long">Ga Phước Long</option>
+                    <option value="Bình Thái">Ga Bình Thái</option>
+                    <option value="Thủ Đức">Ga Thủ Đức</option>
+                    <option value="Khu Công nghệ cao">
+                      Ga Khu Công nghệ cao
+                    </option>
+                    <option value="Đại học Quốc gia">
+                      Ga Đại học Quốc gia
+                    </option>
+                    <option value="Suối Tiên">Ga Bến xe Suối Tiên</option>
+                  </select>
+                </div>
+
+                <button class="swap-btn" onclick="swapStations()">
+                  <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                </button>
+
+                <div class="input-group">
+                  <i class="fa-solid fa-location-crosshairs input-icon"></i>
+                  <select id="station-to" onchange="updateRouteText()">
+                    <option value="" disabled>Chọn ga đến...</option>
+                    <option value="Bến Thành">Ga Bến Thành</option>
+                    <option value="Nhà hát Thành phố">
+                      Ga Nhà hát Thành phố
+                    </option>
+                    <option value="Ba Son">Ga Ba Son</option>
+                    <option value="Văn Thánh">Ga Văn Thánh</option>
+                    <option value="Tân Cảng">Ga Tân Cảng</option>
+                    <option value="Thảo Điền">Ga Thảo Điền</option>
+                    <option value="An Phú">Ga An Phú</option>
+                    <option value="Rạch Chiếc">Ga Rạch Chiếc</option>
+                    <option value="Phước Long">Ga Phước Long</option>
+                    <option value="Bình Thái">Ga Bình Thái</option>
+                    <option value="Thủ Đức">Ga Thủ Đức</option>
+                    <option value="Khu Công nghệ cao">
+                      Ga Khu Công nghệ cao
+                    </option>
+                    <option value="Đại học Quốc gia">
+                      Ga Đại học Quốc gia
+                    </option>
+                    <option value="Suối Tiên" selected>
+                      Ga Bến xe Suối Tiên
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="ticket-type-toggle">
+                <label class="radio-container"
+                  >Một chiều
+                  <input type="radio" checked="checked" name="radio" />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio-container"
+                  >Khứ hồi
+                  <input type="radio" name="radio" />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+
+              <div class="passenger-count">
+                <label>Số lượng hành khách:</label>
+                <div class="counter-box">
+                  <button onclick="updateCount(-1)">-</button>
+                  <span id="count-display">1</span>
+                  <button onclick="updateCount(1)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="booking-col right-col">
+              <h3>2. THANH TOÁN</h3>
+              <div class="payment-info">
+                <p>
+                  <strong>Hành trình:</strong>
+                  <span id="route-display">Bến Thành → Suối Tiên</span>
+                </p>
+                <p>
+                  <strong>Số vé:</strong>
+                  <span id="ticket-count-display">01 người</span>
+                </p>
+                <hr />
+                <div class="total-row">
+                  <span>TỔNG CỘNG:</span>
+                  <span class="total-price" id="total-price">12.000 đ</span>
+                </div>
+              </div>
+              <button class="btn-confirm">XÁC NHẬN & THANH TOÁN</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 100px"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
