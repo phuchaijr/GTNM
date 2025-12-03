@@ -1,0 +1,360 @@
+/* --- 1. RESET & VARIABLES --- */
+:root {
+  --primary-color: #0056b3;
+  --accent-color: #e7f1ff;
+  --text-dark: #333333;
+  --white: #ffffff;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --radius: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: var(--text-dark);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  z-index: 2; /* Đảm bảo nội dung nằm trên lớp phủ */
+}
+
+/* --- 2. HEADER (Trong suốt & Đè lên ảnh) --- */
+header {
+  position: absolute; /* Để header nằm đè lên hero */
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+  z-index: 1000;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    transparent
+  ); /* Bóng đổ nhẹ để dễ đọc chữ */
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white); /* Chữ màu trắng để nổi trên ảnh */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9); /* Chữ trắng mờ */
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.btn-login {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* --- 3. HERO SECTION (FULL MÀN HÌNH) --- */
+.hero {
+  position: relative;
+  height: 80vh; /* Chiếm 80% chiều cao màn hình (hoặc để 100vh nếu muốn full) */
+  width: 100%;
+  /* Ảnh nền được set ở đây */
+  background-image: url("./img/Metro-Tphcm-2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Tạo hiệu ứng Parallax khi cuộn */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+}
+
+/* Lớp phủ màu đen mờ để chữ dễ đọc hơn */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  margin-top: -60px; /* Đẩy chữ lên một chút */
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* --- 4. GRID MENU (NỔI LÊN TRÊN) --- */
+.main-content {
+  position: relative;
+  z-index: 10;
+  padding-bottom: 50px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr); /* Desktop: 8 cột */
+  gap: 20px;
+  background: var(--white);
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  /* MAGIC HERE: Kỹ thuật margin âm để đè lên Hero */
+  margin-top: -80px;
+  position: relative;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.icon-box {
+  width: 55px;
+  height: 55px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  transition: 0.3s;
+}
+
+.feature-item:hover .icon-box {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.feature-item span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* --- 5. TICKET & STATION LIST --- */
+.section-title {
+  margin: 40px 0 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.ticket-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ticket-card {
+  flex: 1;
+  min-width: 280px;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+
+.ticket-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.ticket-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.ticket-icon {
+  font-size: 2.2rem;
+  color: #4facfe;
+}
+
+.ticket-details h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.ticket-details p {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.btn-buy {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.btn-buy:hover {
+  background-color: #004494;
+}
+
+/* Station List */
+.station-list {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.station-item {
+  padding: 18px 25px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.station-item:hover {
+  background-color: #f9f9f9;
+}
+.station-item:last-child {
+  border-bottom: none;
+}
+.view-detail {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* --- 6. RESPONSIVE --- */
+.mobile-menu-btn {
+  display: none;
+  color: var(--white); /* Icon menu màu trắng */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+  } /* Mobile thì ảnh ngắn hơn chút */
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px;
+    display: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav-links a {
+    color: var(--text-dark);
+  } /* Menu mobile nền trắng nên chữ đen */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Grid trên mobile */
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 15px;
+    margin-top: -50px; /* Đè ít hơn trên mobile */
+    gap: 10px;
+  }
+
+  .feature-item span {
+    font-size: 0.75rem;
+  }
+  .icon-box {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+
+  .ticket-list {
+    flex-direction: column;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+    background-attachment: scroll;
+
+    /* Thay bằng link ảnh dọc của bạn ở đây */
+    background-image: url("./img/Metro-Tphcm-2.jpg");
+  }
+}
