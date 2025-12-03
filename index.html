@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HCMC Metro - Vé tàu điện</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- 1. BIẾN & RESET (CLEAN CSS) --- */
+      :root {
+        --primary-color: #0056b3; /* Màu xanh đậm chủ đạo của Metro */
+        --accent-color: #e7f1ff; /* Màu nền xanh nhạt */
+        --text-dark: #333333;
+        --text-light: #666666;
+        --white: #ffffff;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --radius: 16px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: var(--text-dark);
+      }
+
+      .container {
+        max-width: 1200px; /* Giới hạn chiều rộng trên PC */
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+
+      /* --- 2. HEADER --- */
+      header {
+        background-color: var(--white);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Nút menu trên mobile */
+      .mobile-menu-btn {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Menu desktop */
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      /* --- 3. HERO SECTION (Minh họa giống ảnh 4) --- */
+      .hero {
+        background: linear-gradient(180deg, #e3f2fd 0%, #f5f7fa 100%);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .hero h2 {
+        margin-bottom: 20px;
+        color: var(--primary-color);
+      }
+
+      .illustration {
+        width: 100%;
+        max-width: 500px;
+        border-radius: var(--radius);
+        margin: 0 auto;
+        display: block;
+      }
+
+      /* --- 4. GRID MENU (Giống ảnh 4) --- */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Mặc định 4 cột */
+        gap: 16px;
+        background: var(--white);
+        padding: 24px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-top: -30px; /* Đẩy lên đè nhẹ vào hero */
+        position: relative;
+      }
+
+      .feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .feature-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .icon-box {
+        width: 50px;
+        height: 50px;
+        background-color: var(--accent-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+      }
+
+      .feature-item span {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+
+      /* --- 5. TICKET SECTION (Giống ảnh 5) --- */
+      .section-title {
+        margin: 30px 0 15px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .ticket-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .ticket-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: var(--shadow);
+        border: 1px solid transparent;
+        transition: 0.3s;
+      }
+
+      .ticket-card:hover {
+        border-color: var(--primary-color);
+      }
+
+      .ticket-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .ticket-icon {
+        font-size: 2rem;
+        color: #4facfe;
+      }
+
+      .ticket-details h3 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+
+      .ticket-details p {
+        color: var(--primary-color); /* Giá tiền màu xanh */
+        font-weight: 700;
+      }
+
+      .btn-buy {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      /* --- 6. STATION LIST (Giống ảnh 1 & 2) --- */
+      .station-list {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+
+      .station-item {
+        padding: 16px 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .station-item:last-child {
+        border-bottom: none;
+      }
+
+      .station-name {
+        font-weight: 500;
+        font-size: 1rem;
+      }
+
+      .view-detail {
+        font-size: 0.85rem;
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      /* --- 7. RESPONSIVE DESIGN (CHIA BỐ CỤC) --- */
+
+      /* Mobile Devices (Dưới 768px) */
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block; /* Hiện nút hamburger */
+        }
+
+        .nav-links {
+          display: none; /* Ẩn menu desktop */
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: white;
+          padding: 20px;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .features-grid {
+          grid-template-columns: repeat(
+            4,
+            1fr
+          ); /* Giữ 4 cột icon trên mobile giống App */
+          padding: 15px;
+        }
+
+        .feature-item span {
+          font-size: 0.7rem; /* Chữ nhỏ hơn trên mobile */
+        }
+      }
+
+      /* Desktop & Tablet (Trên 768px) */
+      @media (min-width: 769px) {
+        .ticket-list {
+          flex-direction: row; /* Chuyển danh sách vé thành hàng ngang */
+          flex-wrap: wrap;
+        }
+
+        .ticket-card {
+          flex: 1; /* Chia đều chiều rộng */
+          min-width: 250px;
+          flex-direction: column; /* Icon trên, text dưới */
+          text-align: center;
+          gap: 10px;
+        }
+
+        .ticket-info {
+          flex-direction: column;
+        }
+
+        .btn-buy {
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .features-grid {
+          grid-template-columns: repeat(
+            8,
+            1fr
+          ); /* Trải dài thành 1 hàng 8 icon */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container header-content">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-train-subway"></i> HCMC METRO
+        </a>
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="#">Trang chủ</a>
+          <a href="#">Bản đồ</a>
+          <a href="#">Tin tức</a>
+          <a href="#">Hỗ trợ</a>
+          <a href="#" style="color: var(--primary-color); font-weight: bold"
+            >Đăng nhập</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <img
+          src="https://images.unsplash.com/photo-1495571344521-30e9d1c80b33?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+          alt="Metro City"
+          class="illustration"
+          style="height: 200px; object-fit: cover"
+        />
+        <h2 style="margin-top: 15px">Chào mừng, Phúc Hải!</h2>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-ticket"></i></div>
+          <span>Mua vé</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
+          <span>Vé của tôi</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-qrcode"></i></div>
+          <span>Đổi mã</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-circle-info"></i></div>
+          <span>Info Vé</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <span>Hành trình</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-mountain-sun"></i></div>
+          <span>Suối Tiên</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-credit-card"></i></div>
+          <span>VPBank</span>
+        </div>
+        <div class="feature-item">
+          <div class="icon-box"><i class="fa-solid fa-user"></i></div>
+          <span>Tài khoản</span>
+        </div>
+      </div>
+
+      <h3 class="section-title">🔥 Vé nổi bật</h3>
+      <div class="ticket-list">
+        <div class="ticket-card">
+          <div class="ticket-info">
+            <i class="fa-solid fa-ticket ticket-icon"></i>
+            <div class="ticket-details">
+              <h3>Vé 1 ngày</h3>
+              <p>40.000 đ</p>
+            </div>
+          </div>
+          <button class="btn-buy">Mua ngay</button>
+        </div>
+
+        <div class="ticket-card">
+          <div class="ticket-info">
+            <i class="fa-solid fa-ticket ticket-icon"></i>
+            <div class="ticket-details">
+              <h3>Vé 3 ngày</h3>
+              <p>90.000 đ</p>
+            </div>
+          </div>
+          <button class="btn-buy">Mua ngay</button>
+        </div>
+
+        <div class="ticket-card">
+          <div class="ticket-info">
+            <i class="fa-solid fa-id-card ticket-icon"></i>
+            <div class="ticket-details">
+              <h3>Vé tháng</h3>
+              <p>300.000 đ</p>
+            </div>
+          </div>
+          <button class="btn-buy">Mua ngay</button>
+        </div>
+      </div>
+
+      <h3 class="section-title">🎓 Ưu đãi Học sinh - Sinh viên</h3>
+      <div class="ticket-list">
+        <div
+          class="ticket-card"
+          style="background: #fff8e1; border-color: #ffc107"
+        >
+          <div class="ticket-info">
+            <i
+              class="fa-solid fa-graduation-cap ticket-icon"
+              style="color: #ff9800"
+            ></i>
+            <div class="ticket-details">
+              <h3>Vé tháng HSSV</h3>
+              <p style="color: #e65100">150.000 đ</p>
+            </div>
+          </div>
+          <button class="btn-buy" style="background: #ff9800">Đăng ký</button>
+        </div>
+      </div>
+
+      <h3 class="section-title">🚉 Chọn ga khởi hành</h3>
+      <div class="station-list">
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Bến Thành</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Nhà hát Thành phố</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Ba Son</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Văn Thánh</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Tân Cảng</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Thảo Điền</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Khu Công nghệ cao</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+        <div class="station-item">
+          <span class="station-name">Đi từ ga Bến xe Suối Tiên</span>
+          <span class="view-detail">Xem chi tiết</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Script đơn giản để mở menu trên mobile
+      function toggleMenu() {
+        const nav = document.getElementById("navLinks");
+        nav.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>
