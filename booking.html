@@ -21,7 +21,7 @@
   <body>
     <header id="main-header">
       <div class="container header-content">
-        <a href="index.html" class="logo"
+        <a href="trangchu.html" class="logo"
           ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
         >
         <div class="mobile-menu-btn" onclick="toggleMenu()">
@@ -32,7 +32,7 @@
           <a href="booking.html" class="active">Mua vé</a>
           <a href="tin-tuc.html">Tin tức</a>
           <a href="ho-tro.html">Hỗ trợ</a>
-          <a href="index.html" class="btn-login">Đăng nhập</a>
+          <a href="tai-khoan.html" class="btn-login active-btn">Tài khoản</a>
         </nav>
       </div>
     </header>
@@ -123,16 +123,28 @@
                   </select>
                 </div>
               </div>
-
               <div class="ticket-type-toggle">
                 <label class="radio-container"
                   >Một chiều
-                  <input type="radio" checked="checked" name="radio" />
+                  <input
+                    type="radio"
+                    id="type-one"
+                    name="radio"
+                    value="1"
+                    checked
+                    onchange="calculateTotal()"
+                  />
                   <span class="checkmark"></span>
                 </label>
                 <label class="radio-container"
                   >Khứ hồi
-                  <input type="radio" name="radio" />
+                  <input
+                    type="radio"
+                    id="type-round"
+                    name="radio"
+                    value="2"
+                    onchange="calculateTotal()"
+                  />
                   <span class="checkmark"></span>
                 </label>
               </div>
@@ -164,7 +176,9 @@
                   <span class="total-price" id="total-price">12.000 đ</span>
                 </div>
               </div>
-              <button class="btn-confirm">XÁC NHẬN & THANH TOÁN</button>
+              <button class="btn-confirm" onclick="goToPaymentPage()">
+                XÁC NHẬN & THANH TOÁN
+              </button>
             </div>
           </div>
         </div>

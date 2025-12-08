@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Vé của tôi - HCMC Metro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="main-header">
+      <div class="container header-content">
+        <a href="trangchu.html" class="logo">
+          <i class="fa-solid fa-train-subway"></i> HCMC METRO
+        </a>
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="booking.html">Mua vé</a>
+          <a href="tin-tuc.html">Tin tức</a>
+          <a href="ho-tro.html">Hỗ trợ</a>
+          <a href="tai-khoan.html" class="btn-login active-btn">Tài khoản</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero hero-small" style="background-image: url('./img/anh_nen_ve_metro.webp');">
+      <div class="hero-overlay"></div>
+      <div class="container hero-text">
+        <h1>Vé của tôi</h1>
+        <p>Quản lý lịch trình và vé điện tử của bạn</p>
+      </div>
+    </section>
+
+    <div class="main-content">
+      <div class="container">
+        
+        <div class="ticket-tabs">
+            <button class="tab-btn active" onclick="filterTickets('active')">Vé sắp đi (2)</button>
+            <button class="tab-btn" onclick="filterTickets('history')">Lịch sử</button>
+        </div>
+
+        <div class="my-ticket-list" id="ticket-container">
+            
+            <div class="digital-ticket active-ticket">
+                <div class="ticket-left">
+                    <div class="ticket-header">
+                        <span class="ticket-type">Vé một chiều</span>
+                        <span class="ticket-status status-active">Đang hiệu lực</span>
+                    </div>
+                    <div class="ticket-route">
+                        <div class="station">
+                            <strong>Bến Thành</strong>
+                            <span>14:30 - 20/01/2025</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+                        <div class="station">
+                            <strong>Suối Tiên</strong>
+                            <span>Dự kiến 15:15</span>
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <span><i class="fa-solid fa-user"></i> 01 Người lớn</span>
+                        <span><i class="fa-solid fa-tag"></i> 12.000 đ</span>
+                    </div>
+                </div>
+                <div class="ticket-right">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=METRO-SG-123456" alt="QR Code" class="qr-code">
+                    <p class="qr-note">Quét mã để qua cổng</p>
+                </div>
+            </div>
+
+            <div class="digital-ticket active-ticket">
+                <div class="ticket-left">
+                    <div class="ticket-header">
+                        <span class="ticket-type">Vé ngày</span>
+                        <span class="ticket-status status-active">Đang hiệu lực</span>
+                    </div>
+                    <div class="ticket-route">
+                        <div class="station">
+                            <strong>Tự do di chuyển</strong>
+                            <span>Hết hạn: 23:59 - 21/01/2025</span>
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <span><i class="fa-solid fa-user"></i> 01 Người lớn</span>
+                        <span><i class="fa-solid fa-tag"></i> 40.000đ/ngày</span>
+                    </div>
+                </div>
+                <div class="ticket-right">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=METRO-DAYPASS-999" alt="QR Code" class="qr-code">
+                    <p class="qr-note">Quét mã để qua cổng</p>
+                </div>
+            </div>
+
+            <div class="digital-ticket history-ticket" style="display: none; opacity: 0.7;">
+                <div class="ticket-left">
+                    <div class="ticket-header">
+                        <span class="ticket-type">Vé một chiều</span>
+                        <span class="ticket-status status-used">Đã sử dụng</span>
+                    </div>
+                    <div class="ticket-route">
+                        <div class="station">
+                            <strong>Thảo Điền</strong>
+                            <span>09:00 - 11/01/2025</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+                        <div class="station">
+                            <strong>Ba Son</strong>
+                            <span>09:20 - 10/01/2025</span>
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <span><i class="fa-solid fa-user"></i> 01 Người lớn</span>
+                        <span><i class="fa-solid fa-tag"></i> 10.000 đ</span>
+                    </div>
+                </div>
+                <div class="ticket-right">
+                    <div class="qr-placeholder"><i class="fa-solid fa-check-circle"></i></div>
+                    <p class="qr-note">Hoàn thành</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <div style="height: 50px;"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Hàm lọc vé riêng cho trang này
+        function filterTickets(type) {
+            const activeTickets = document.querySelectorAll('.active-ticket');
+            const historyTickets = document.querySelectorAll('.history-ticket');
+            const tabs = document.querySelectorAll('.tab-btn');
+
+            if (type === 'active') {
+                activeTickets.forEach(t => t.style.display = 'flex');
+                historyTickets.forEach(t => t.style.display = 'none');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                activeTickets.forEach(t => t.style.display = 'none');
+                historyTickets.forEach(t => t.style.display = 'flex');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+    </script>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-col">
+          <h3>HCMC METRO</h3>
+          <p>Hệ thống đường sắt đô thị hiện đại, an toàn và thân thiện.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Về chúng tôi</h3>
+          <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="#">Giới thiệu chung</a></li>
+            <li><a href="#">Tuyển dụng</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Dịch vụ</h3>
+          <ul>
+            <li><a href="booking.html">Mua vé trực tuyến</a></li>
+            <li><a href="#">Bản đồ nhà ga</a></li>
+            <li><a href="ho-tro.html">Trung tâm hỗ trợ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Liên hệ</h3>
+          <ul>
+            <li><a href="#"><i class="fa-solid fa-location-dot"></i> NLU, TP.HCM</a></li>
+            <li><a href="tel:19001234"><i class="fa-solid fa-phone"></i> 1900 1234</a></li>
+            <li><a href="mailto:phuchai@hcmcmetro.vn"><i class="fa-solid fa-envelope"></i> phuchai@hcmcmetro.vn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>&copy; 2024 Metro Connect TP.HCM. Designed by Phuc Hai.</p>
+      </div>
+    </footer>
+  </body>
+</html>

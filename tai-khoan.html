@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Tài khoản - HCMC Metro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="toast-container"></div>
+
+    <header id="main-header">
+      <div class="container header-content">
+        <a href="index.html" class="logo"
+          ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
+        >
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="booking.html">Mua vé</a>
+          <a href="tin-tuc.html">Tin tức</a>
+          <a href="ho-tro.html">Hỗ trợ</a>
+          <a href="tai-khoan.html" class="btn-login active-btn">Phúc Hải</a>
+        </nav>
+      </div>
+    </header>
+
+    <section
+      class="hero hero-small"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1494587416117-f104ef29d327?q=80&w=1920');
+      "
+    >
+      <div class="hero-overlay"></div>
+      <div class="container hero-text">
+        <h1>Hồ sơ của bạn</h1>
+        <p>Quản lý thông tin cá nhân và lịch sử chuyến đi</p>
+      </div>
+    </section>
+
+    <div class="main-content">
+      <div class="container profile-layout">
+        <aside class="profile-sidebar">
+          <div class="profile-header">
+            <div class="avatar-wrapper">
+              <img
+                id="user-avatar"
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
+                alt="Avatar"
+              />
+              <input
+                type="file"
+                id="avatar-input"
+                accept="image/*"
+                style="display: none"
+                onchange="previewAvatar(this)"
+              />
+              <button
+                class="edit-avatar-btn"
+                onclick="document.getElementById('avatar-input').click()"
+              >
+                <i class="fa-solid fa-camera"></i>
+              </button>
+            </div>
+            <h3>Nguyễn Phúc Hải</h3>
+            <span class="member-badge"
+              ><i class="fa-solid fa-crown"></i> Thành viên Vàng</span
+            >
+          </div>
+
+          <nav class="profile-menu">
+            <button class="menu-item active" onclick="showSection('info')">
+              <i class="fa-solid fa-user"></i> Thông tin cá nhân
+            </button>
+            <button
+              class="menu-item"
+              onclick="window.location.href='ve-cua-toi.html'"
+            >
+              <i class="fa-solid fa-ticket"></i> Vé của tôi
+            </button>
+            <button class="menu-item" onclick="showSection('history')">
+              <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử giao dịch
+            </button>
+            <button class="menu-item" onclick="showSection('settings')">
+              <i class="fa-solid fa-gear"></i> Cài đặt
+            </button>
+            <a href="index.html" class="logout-btn"
+              ><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a
+            >
+          </nav>
+        </aside>
+
+        <main class="profile-details">
+          <div id="section-info" class="content-section active-section">
+            <h3 class="card-title">Cập nhật thông tin</h3>
+
+            <form
+              class="profile-form"
+              onsubmit="event.preventDefault(); showToast('Đã lưu thay đổi thành công!', 'success');"
+            >
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Họ và tên</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-user"></i>
+                    <input
+                      type="text"
+                      value="Nguyễn Văn A"
+                      class="form-input"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-phone"></i>
+                    <input
+                      type="text"
+                      value="0987 654 321"
+                      class="form-input"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Email</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-envelope"></i>
+                  <input
+                    type="email"
+                    value="examp@email.com"
+                    class="form-input"
+                    readonly
+                    style="background-color: #f0f0f0; cursor: not-allowed"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Địa chỉ</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <input type="text" value="NLU, TP.HCM" class="form-input" />
+                </div>
+              </div>
+
+              <hr class="divider" />
+
+              <div class="security-toggle-header" onclick="toggleSecurity()">
+                <h3
+                  class="card-title"
+                  style="margin: 0; border: none; font-size: 1.1rem"
+                >
+                  <i class="fa-solid fa-shield-halved"></i> Đổi mật khẩu
+                </h3>
+                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+              </div>
+
+              <div id="security-section" class="security-content">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Mật khẩu mới</label>
+                    <div class="input-with-icon">
+                      <i class="fa-solid fa-lock"></i>
+                      <input
+                        type="password"
+                        id="new-pass"
+                        placeholder="Nhập mật khẩu mới"
+                        class="form-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Xác nhận mật khẩu</label>
+                    <div class="input-with-icon">
+                      <i class="fa-solid fa-lock"></i>
+                      <input
+                        type="password"
+                        id="confirm-pass"
+                        placeholder="Nhập lại mật khẩu"
+                        class="form-input"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="this.closest('form').reset()"
+                >
+                  Hủy bỏ
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Lưu thay đổi
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div id="section-history" class="content-section">
+            <h3 class="card-title">Lịch sử giao dịch</h3>
+            <div class="history-list">
+              <div class="history-item">
+                <div class="his-icon bg-green">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div class="his-info">
+                  <h4>Mua vé thành công</h4>
+                  <span>Bến Thành - Suối Tiên • 1 Vé</span>
+                </div>
+                <div class="his-price">-12.000đ</div>
+                <div class="his-date">20/10/2024</div>
+              </div>
+              <div class="history-item">
+                <div class="his-icon bg-blue">
+                  <i class="fa-solid fa-wallet"></i>
+                </div>
+                <div class="his-info">
+                  <h4>Nạp tiền vào ví</h4>
+                  <span>Qua Momo</span>
+                </div>
+                <div class="his-price plus">+100.000đ</div>
+                <div class="his-date">18/10/2024</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="section-settings" class="content-section">
+            <h3 class="card-title">Cài đặt chung</h3>
+            <div class="setting-item">
+              <span>Nhận thông báo qua Email</span>
+              <label class="switch">
+                <input type="checkbox" checked />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <span>Giao diện tối (Dark Mode)</span>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </main>
+      </div>
+      <div style="height: 50px"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
