@@ -2459,3 +2459,106 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
 }
+@media (max-width: 768px) {
+  /* 1. Chỉnh khung bao ngoài không bị tràn */
+  .container {
+    padding: 0 10px; /* Giảm lề 2 bên màn hình */
+  }
+
+  .booking-wrapper {
+    padding: 20px 15px; /* Giảm padding trong khung trắng */
+    width: 100%; /* Đảm bảo ko rộng hơn màn hình */
+    box-sizing: border-box; /* Tính padding vào trong width */
+  }
+
+  /* 2. Chuyển Grid 2 cột thành 1 cột dọc */
+  .booking-grid {
+    display: flex;
+    flex-direction: column; /* Xếp chồng lên nhau */
+    gap: 30px; /* Khoảng cách giữa phần nhập và phần thanh toán */
+  }
+
+  /* 3. Phần chọn Tuyến đường (Ga đi - Nút đổi - Ga đến) */
+  .route-select {
+    display: flex;
+    flex-direction: column; /* Xếp dọc các ô chọn */
+    align-items: center; /* Căn giữa nút đổi chiều */
+    width: 100%;
+  }
+
+  .input-group {
+    width: 100%; /* Ô chọn rộng full màn hình */
+    margin-bottom: 0;
+  }
+
+  .input-group select {
+    width: 100%; /* Select box rộng 100% */
+  }
+
+  /* 4. Xoay nút đổi chiều (Swap) */
+  .swap-btn {
+    margin: 15px 0; /* Tạo khoảng cách trên dưới */
+    transform: rotate(90deg); /* Xoay mũi tên thành lên/xuống */
+    background: #f0f8ff; /* Thêm nền nhẹ cho dễ thấy */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  /* Fix lỗi icon mũi tên bị lệch khi xoay */
+  .swap-btn i {
+    transform: scale(1.2);
+  }
+
+  /* 5. Phần chọn loại vé (Radio button) */
+  .ticket-type-toggle {
+    display: flex;
+    justify-content: space-between; /* Dãn đều 2 bên */
+    gap: 10px;
+  }
+
+  .radio-container {
+    font-size: 14px; /* Chữ nhỏ lại chút cho vừa */
+  }
+
+  /* 6. Phần chọn số lượng hành khách */
+  .passenger-count {
+    flex-direction: column; /* Tiêu đề ở trên, nút bấm ở dưới */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .counter-box {
+    width: 100%;
+    justify-content: space-between; /* Nút + - dãn ra 2 bên cho dễ bấm */
+    background: #f9f9f9;
+    padding: 5px;
+  }
+
+  .counter-box button {
+    width: 50px; /* Nút to hơn cho dễ bấm trên cảm ứng */
+    height: 40px;
+  }
+
+  /* 7. Phần Tổng tiền (Right Column) */
+  .booking-col.right-col {
+    background: #fff8f8; /* Nền nhạt để nổi bật */
+    border: 1px dashed #ffcccc;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .btn-confirm {
+    position: static !important; /* Quan trọng: Hủy chế độ ghim đáy */
+    width: 100%; /* Vẫn để rộng 100% của hộp cho đẹp */
+    margin-top: 20px; /* Cách phần tổng tiền ra cho thoáng */
+    border-radius: 8px; /* Bo tròn lại (vì code trước làm nó vuông) */
+    box-shadow: none; /* Bỏ bóng đổ kiểu ghim đáy */
+    z-index: 1;
+  }
+
+  /* Nếu dùng nút ghim đáy thì cần thêm khoảng trống ở dưới */
+  .main-content {
+    padding-bottom: 20px !important; /* Trả về bình thường */
+  }
+}
