@@ -39,116 +39,140 @@ window.addEventListener("scroll", function () {
     }
   }
 });
-
 /* ==========================================================================
    2. BOOKING PAGE (Logic Trang Đặt Vé - booking.html)
    ========================================================================== */
 
-// Biến toàn cục cho đặt vé
-let count = 1;
-const basePrice = 12000; // Giá gốc 1 chiều
+const stationList = [
+  "Bến Thành",
+  "Nhà hát Thành phố",
+  "Ba Son",
+  "Văn Thánh",
+  "Tân Cảng",
+  "Thảo Điền",
+  "An Phú",
+  "Rạch Chiếc",
+  "Phước Long",
+  "Bình Thái",
+  "Thủ Đức",
+  "Khu Công nghệ cao",
+  "Đại học Quốc gia",
+  "Suối Tiên",
+];
 
-/**
- * Tính tổng tiền
- * Logic: (Số người * Giá gốc) * (Hệ số khứ hồi)
- */
+const priceMatrix = [
+  [0, 7, 7, 7, 7, 7, 7, 9, 10, 12, 14, 16, 18, 20],
+  [7, 0, 7, 7, 7, 7, 7, 8, 10, 11, 13, 16, 17, 20],
+  [7, 7, 0, 7, 7, 7, 7, 7, 9, 10, 12, 15, 16, 18],
+  [7, 7, 7, 0, 7, 7, 7, 7, 7, 8, 10, 13, 14, 17],
+  [7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 9, 12, 13, 16],
+  [7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 8, 10, 12, 14],
+  [7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 9, 11, 13],
+  [9, 8, 7, 7, 7, 7, 7, 0, 7, 7, 7, 8, 9, 11],
+  [10, 10, 9, 7, 7, 7, 7, 7, 0, 7, 7, 7, 8, 10],
+  [12, 11, 10, 8, 7, 7, 7, 7, 7, 0, 7, 7, 7, 8],
+  [14, 13, 12, 10, 9, 8, 7, 7, 7, 7, 0, 7, 7, 7],
+  [16, 16, 15, 13, 12, 10, 9, 8, 7, 7, 7, 0, 7, 7],
+  [18, 17, 16, 14, 13, 12, 11, 9, 8, 7, 7, 7, 0, 7],
+  [20, 20, 18, 17, 16, 14, 13, 11, 10, 8, 7, 7, 7, 0],
+];
+
 function calculateTotal() {
   const ticketCountDisplay = document.getElementById("ticket-count-display");
   const totalPriceDisplay = document.getElementById("total-price");
+  const fromSelect = document.getElementById("station-from");
+  const toSelect = document.getElementById("station-to");
+  const countDisplay = document.getElementById("count-display");
 
-  // Kiểm tra xem có đang ở trang đặt vé không
-  if (!ticketCountDisplay || !totalPriceDisplay) return;
+  if (!ticketCountDisplay || !fromSelect || !toSelect) return;
 
-  // Lấy trạng thái khứ hồi (nếu có radio button)
-  const roundTripRadio = document.getElementById("type-round"); // ID cần thêm vào HTML
-  let multiplier = 1;
-  let typeText = "(Một chiều)";
+  const fromStation = fromSelect.value;
+  const toStation = toSelect.value;
+  const count = parseInt(countDisplay.innerText) || 1;
 
-  // Nếu tìm thấy radio button và nó được chọn -> Nhân đôi giá
-  if (roundTripRadio && roundTripRadio.checked) {
-    multiplier = 2;
-    typeText = "(Khứ hồi)";
+  const roundTripRadio = document.getElementById("type-round");
+  const isRoundTrip = roundTripRadio && roundTripRadio.checked;
+
+  // Cập nhật text hành trình
+  const indexFrom = stationList.indexOf(fromStation);
+  const indexTo = stationList.indexOf(toStation);
+  const routeDisplay = document.getElementById("route-display");
+  if (routeDisplay && indexFrom !== -1 && indexTo !== -1) {
+    routeDisplay.innerHTML = `${fromStation} <i class="fa-solid fa-arrow-right"></i> ${toStation}`;
   }
 
-  // Tính toán
-  const total = count * basePrice * multiplier;
-
-  // Cập nhật giao diện
+  // Cập nhật text số người
+  const typeText = isRoundTrip ? "(Khứ hồi)" : "(Một chiều)";
   const countText = count < 10 ? "0" + count : count;
   ticketCountDisplay.innerText = `${countText} người ${typeText}`;
-  totalPriceDisplay.innerText = total.toLocaleString("vi-VN") + " đ";
-}
 
-/**
- * Tăng giảm số lượng hành khách
- * @param {number} n : +1 hoặc -1
- */
-function updateCount(n) {
-  count += n;
-  // Giới hạn min 1, max 10
-  if (count < 1) count = 1;
-  if (count > 10) count = 10;
-
-  // Cập nhật số ở giữa 2 nút bấm
-  const countDisplay = document.getElementById("count-display");
-  if (countDisplay) {
-    countDisplay.innerText = count;
+  // TÍNH TIỀN
+  let total = 0;
+  if (indexFrom !== -1 && indexTo !== -1 && indexFrom !== indexTo) {
+    let priceK = priceMatrix[indexFrom][indexTo];
+    let singlePrice = priceK * 1000;
+    if (isRoundTrip) singlePrice = singlePrice * 2;
+    total = singlePrice * count;
   }
 
-  // Tính lại tiền
+  if (totalPriceDisplay) {
+    totalPriceDisplay.innerText = total.toLocaleString("vi-VN") + " đ";
+    // Lưu tạm giá trị tổng tiền vào attribute để hàm goToPaymentPage dễ lấy
+    totalPriceDisplay.setAttribute("data-value", total);
+  }
+}
+
+function updateCount(n) {
+  const display = document.getElementById("count-display");
+  if (!display) return;
+  let count = parseInt(display.innerText) + n;
+  if (count < 1) count = 1;
+  if (count > 50) count = 50;
+  display.innerText = count;
   calculateTotal();
 }
 
-/**
- * Đổi vị trí Ga đi và Ga đến
- */
 function swapStations() {
   const from = document.getElementById("station-from");
   const to = document.getElementById("station-to");
-
   if (from && to) {
-    const temp = from.selectedIndex;
-    from.selectedIndex = to.selectedIndex;
-    to.selectedIndex = temp;
-    updateRouteText();
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+    calculateTotal();
   }
 }
 
-/**
- * Cập nhật chữ hiển thị hành trình (VD: Bến Thành -> Suối Tiên)
- */
 function updateRouteText() {
-  const from = document.getElementById("station-from");
-  const to = document.getElementById("station-to");
-  const display = document.getElementById("route-display");
-
-  if (from && to && display) {
-    // Lấy text của option đang chọn
-    const fromText = from.options[from.selectedIndex].text.replace("Ga ", "");
-    const toText = to.options[to.selectedIndex].text.replace("Ga ", "");
-    display.innerText = `${fromText} → ${toText}`;
-  }
-}
-
-/**
- * Chuyển hướng sang trang thanh toán
- */
-function goToPaymentPage() {
-  // Có thể thêm logic validate dữ liệu ở đây
-  window.location.href = "thanh-toan.html";
-}
-
-// Gọi tính toán lần đầu khi trang load (để đảm bảo giá đúng)
-document.addEventListener("DOMContentLoaded", () => {
   calculateTotal();
+}
 
-  // Gắn sự kiện cho radio buttons nếu chưa gắn trong HTML
-  const radios = document.getElementsByName("radio");
-  radios.forEach((radio) => {
-    radio.addEventListener("change", calculateTotal);
-  });
-});
+function goToPaymentPage() {
+  const fromStation = document.getElementById("station-from").value;
+  const toStation = document.getElementById("station-to").value;
+  const count = document.getElementById("count-display").innerText;
+  const isRoundTrip = document.getElementById("type-round").checked;
+  const totalPriceElement = document.getElementById("total-price");
 
+  // Lấy tổng tiền (Nếu có attribute data-value thì lấy, không thì lấy text)
+  let totalString = totalPriceElement.innerText;
+
+  // Tạo object chứa thông tin vé
+  const ticketData = {
+    from: fromStation,
+    to: toStation,
+    count: count,
+    type: isRoundTrip ? "Khứ hồi" : "Một chiều",
+    total: totalString,
+    date: new Date().toLocaleDateString("vi-VN"), // Ngày hiện tại
+  };
+
+  // Lưu vào LocalStorage
+  localStorage.setItem("pendingTicket", JSON.stringify(ticketData));
+
+  // Chuyển trang
+  window.location.href = "thanh-toan.html"; // Sửa lại đúng tên file của bạn
+}
 /* ==========================================================================
    3. AUTHENTICATION (Logic Đăng nhập/Đăng ký - login.html)
    ========================================================================== */
@@ -170,32 +194,124 @@ function switchTab(tabName) {
 
     if (tabName === "login") {
       loginForm.classList.add("active-form");
-      tabs[0].classList.add("active"); // Giả sử tab đầu là Login
+      tabs[0].classList.add("active");
     } else {
       registerForm.classList.add("active-form");
-      tabs[1].classList.add("active"); // Giả sử tab hai là Register
+      tabs[1].classList.add("active");
     }
   }
 }
 
 /**
- * Ẩn hiện mật khẩu (Icon con mắt)
+ * Ẩn hiện mật khẩu
  */
 function togglePass(inputId) {
   const input = document.getElementById(inputId);
+  const icon = input.nextElementSibling; // Lấy icon bên cạnh
+
   if (input) {
-    input.type = input.type === "password" ? "text" : "password";
+    if (input.type === "password") {
+      input.type = "text";
+      if (icon) {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      }
+    } else {
+      input.type = "password";
+      if (icon) {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
   }
 }
 
 /**
- * Demo Login
+ * Xử lý ĐĂNG KÝ
  */
-function demoLogin() {
-  alert("Đăng nhập thành công! Đang chuyển hướng...");
-  window.location.href = "index.html";
+function handleRegister() {
+  // 1. Lấy dữ liệu từ form
+  const name = document.getElementById("reg-name").value.trim();
+  const phone = document.getElementById("reg-phone").value.trim();
+  const pass = document.getElementById("reg-pass").value;
+  const confirmPass = document.getElementById("reg-confirm-pass").value;
+
+  // 2. Kiểm tra dữ liệu
+  if (!name || !phone || !pass || !confirmPass) {
+    alert("Vui lòng nhập đầy đủ thông tin!");
+    return;
+  }
+
+  if (pass !== confirmPass) {
+    alert("Mật khẩu nhập lại không khớp!");
+    return;
+  }
+
+  // 3. Lấy danh sách user cũ từ LocalStorage
+  const users = JSON.parse(localStorage.getItem("hcmc_users")) || [];
+
+  // Kiểm tra xem số điện thoại đã tồn tại chưa
+  const exists = users.find((u) => u.phone === phone);
+  if (exists) {
+    alert("Số điện thoại này đã được đăng ký!");
+    return;
+  }
+
+  // 4. Lưu user mới
+  const newUser = { name, phone, pass };
+  users.push(newUser);
+  localStorage.setItem("hcmc_users", JSON.stringify(users));
+
+  alert("Đăng ký thành công! Vui lòng đăng nhập.");
+
+  // 5. Chuyển sang tab đăng nhập
+  switchTab("login");
+
+  // --- SỬA LỖI: Dùng đúng ID 'login-username' của file HTML ---
+  const loginInput = document.getElementById("login-username");
+  if (loginInput) {
+    loginInput.value = phone; // Tự điền số điện thoại vừa đăng ký
+    document.getElementById("login-pass").focus();
+  }
+
+  // Xóa form đăng ký
+  document.getElementById("register-form").reset();
 }
 
+/**
+ * Xử lý ĐĂNG NHẬP
+ */
+function handleLogin() {
+  // --- SỬA LỖI: Dùng đúng ID 'login-username' của file HTML ---
+  const phoneInput = document.getElementById("login-username").value.trim();
+  const passInput = document.getElementById("login-pass").value;
+
+  if (!phoneInput || !passInput) {
+    alert("Vui lòng nhập đầy đủ thông tin!");
+    return;
+  }
+
+  // Lấy dữ liệu từ LocalStorage
+  const users = JSON.parse(localStorage.getItem("hcmc_users")) || [];
+
+  // Tìm kiếm user (So khớp Số điện thoại và Mật khẩu)
+  const user = users.find(
+    (u) => u.phone === phoneInput && u.pass === passInput
+  );
+
+  if (user) {
+    alert("Đăng nhập thành công! Xin chào " + user.name);
+
+    // Lưu phiên đăng nhập hiện tại
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    // --- CHUYỂN HƯỚNG TRANG ---
+    // Đảm bảo file trang chủ của bạn tên là "trangchu.html"
+    window.location.href = "trangchu.html";
+  } else {
+    alert("Sai số điện thoại hoặc mật khẩu! (Hoặc tài khoản chưa đăng ký)");
+  }
+}
 /* ==========================================================================
    4. SUPPORT PAGE (Logic Trang Hỗ trợ - ho-tro.html)
    ========================================================================== */
@@ -237,40 +353,115 @@ function toggleSecurity() {
 }
 
 /* ==========================================================================
-   6. MY TICKETS PAGE (Logic Trang Vé của tôi - ve-cua-toi.html)
+   6. MY TICKETS PAGE (Logic hiển thị vé đã mua)
    ========================================================================== */
 
-/**
- * Lọc vé (Sắp đi / Lịch sử)
- */
-function filterTickets(type) {
-  const activeTickets = document.querySelectorAll(".active-ticket");
-  const historyTickets = document.querySelectorAll(".history-ticket");
-  const tabs = document.querySelectorAll(".ticket-tabs .tab-btn");
+function renderMyTickets() {
+  const container = document.getElementById("ticket-container");
 
-  // Chỉ chạy nếu đang ở trang có tab vé
-  if (tabs.length > 0) {
-    if (type === "active") {
-      activeTickets.forEach((t) => (t.style.display = "flex"));
-      historyTickets.forEach((t) => (t.style.display = "none"));
-      tabs[0].classList.add("active");
-      tabs[1].classList.remove("active");
-    } else {
-      activeTickets.forEach((t) => (t.style.display = "none"));
-      historyTickets.forEach((t) => (t.style.display = "flex"));
-      tabs[0].classList.remove("active");
-      tabs[1].classList.add("active");
-    }
+  // Chỉ chạy nếu đang ở trang ve-cua-toi.html
+  if (!container) return;
+
+  // Lấy danh sách vé từ bộ nhớ
+  const myTickets = JSON.parse(localStorage.getItem("myTickets")) || [];
+
+  // Nếu không có vé nào
+  if (myTickets.length === 0) {
+    // Bạn có thể hiện thông báo "Chưa có vé" nếu muốn
+    return;
   }
+
+  // Duyệt qua từng vé và tạo HTML
+  myTickets.forEach((ticket, index) => {
+    // Tạo mã vé ngẫu nhiên để làm QR Code
+    const ticketCode = "METRO-" + Math.floor(Math.random() * 1000000);
+
+    // Tạo giờ ngẫu nhiên (hoặc lấy giờ hiện tại)
+    const timeStart = new Date().getHours() + ":" + new Date().getMinutes();
+
+    // HTML Cấu trúc vé (Khớp với file HTML của bạn)
+    const ticketHTML = `
+      <div class="digital-ticket active-ticket">
+        <div class="ticket-left">
+            <div class="ticket-header">
+                <span class="ticket-type">${
+                  ticket.type || "Vé một chiều"
+                }</span>
+                <span class="ticket-status status-active">Mới mua</span>
+            </div>
+            <div class="ticket-route">
+                <div class="station">
+                    <strong>${ticket.from}</strong>
+                    <span>${timeStart} - ${ticket.date}</span>
+                </div>
+                <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+                <div class="station">
+                    <strong>${ticket.to}</strong>
+                    <span>Dự kiến --:--</span>
+                </div>
+            </div>
+            <div class="ticket-footer">
+                <span><i class="fa-solid fa-user"></i> ${ticket.count}</span>
+                <span><i class="fa-solid fa-tag"></i> ${ticket.total}</span>
+            </div>
+        </div>
+        <div class="ticket-right">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticketCode}" alt="QR Code" class="qr-code">
+            <p class="qr-note">Quét mã</p>
+        </div>
+      </div>
+    `;
+
+    // Chèn vé mới vào ngay sau các nút Tab (để nó nằm trên cùng)
+    // Cách đơn giản nhất: Tạo element và prepend vào container
+    const div = document.createElement("div");
+    div.innerHTML = ticketHTML;
+
+    // Tìm vị trí chèn: Chèn vào đầu danh sách vé
+    // Lưu ý: Code này sẽ chèn thêm vào danh sách có sẵn trong HTML
+    container.insertBefore(
+      div.firstElementChild,
+      container.querySelector(".digital-ticket")
+    );
+  });
 }
+
+// Gọi hàm này khi tải trang
+document.addEventListener("DOMContentLoaded", () => {
+  renderMyTickets();
+});
 
 /* ==========================================================================
    7. PAYMENT PAGE (Logic Trang Thanh Toán - thanh-toan.html)
    ========================================================================== */
 
-/**
- * Xử lý hiệu ứng nút "Thanh toán ngay"
- */
+function loadPaymentInfo() {
+  // Chỉ chạy nếu đang ở trang có id="pay-total"
+  const payTotal = document.getElementById("pay-total");
+  if (!payTotal) return;
+
+  // Lấy dữ liệu từ LocalStorage
+  const data = JSON.parse(localStorage.getItem("pendingTicket"));
+
+  if (data) {
+    document.getElementById(
+      "pay-route"
+    ).innerText = `${data.from} → ${data.to}`;
+    document.getElementById("pay-type").innerText = data.type;
+    document.getElementById("pay-passenger").innerText =
+      data.count < 10 ? `0${data.count} Người` : `${data.count} Người`;
+    document.getElementById("pay-total").innerText = data.total;
+
+    if (document.getElementById("pay-date")) {
+      document.getElementById("pay-date").innerText = data.date;
+    }
+  } else {
+    // Nếu không có dữ liệu (người dùng vào thẳng link thanh toán) -> Về trang đặt vé
+    alert("Vui lòng chọn vé trước!");
+    window.location.href = "booking.html";
+  }
+}
+
 function processPayment() {
   const btn = document.querySelector(".btn-pay");
   const modal = document.getElementById("success-modal");
@@ -278,76 +469,202 @@ function processPayment() {
   if (btn && modal) {
     const originalText = btn.innerHTML;
 
-    // 1. Chuyển sang trạng thái loading
+    // 1. Hiệu ứng Loading
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xử lý...';
     btn.disabled = true;
     btn.style.opacity = "0.7";
 
-    // 2. Giả lập delay 1.5 giây
+    // 2. Giả lập xử lý thanh toán (1.5 giây)
     setTimeout(() => {
+      // --- LOGIC LƯU VÉ MỚI ---
+      // Lấy vé đang chờ thanh toán
+      const pendingTicket = JSON.parse(localStorage.getItem("pendingTicket"));
+
+      if (pendingTicket) {
+        // Lấy danh sách vé cũ (nếu có), nếu chưa có thì tạo mảng rỗng
+        let myTickets = JSON.parse(localStorage.getItem("myTickets")) || [];
+
+        // Thêm vé mới vào đầu danh sách
+        myTickets.unshift(pendingTicket);
+
+        // Lưu lại vào LocalStorage
+        localStorage.setItem("myTickets", JSON.stringify(myTickets));
+
+        // Xóa vé tạm
+        localStorage.removeItem("pendingTicket");
+      }
+      // -------------------------
+
       // Hiện Modal thành công
       modal.classList.add("show");
 
-      // Reset nút (phòng khi user back lại)
+      // Reset nút
       btn.innerHTML = originalText;
       btn.disabled = false;
       btn.style.opacity = "1";
     }, 1500);
   }
 }
+
+// --- GLOBAL EVENT LISTENERS ---
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Tính toán giá nếu ở trang Booking
+  calculateTotal();
+
+  // 2. Load thông tin vé nếu ở trang Thanh toán
+  loadPaymentInfo();
+
+  // 3. Sự kiện radio buttons
+  const radios = document.getElementsByName("radio");
+  radios.forEach((radio) => {
+    radio.addEventListener("change", calculateTotal);
+  });
+});
 /* =========================================
-   LOGIC MỚI CHO TRANG TÀI KHOẢN
+   LOGIC TRANG TÀI KHOẢN
    ========================================= */
 
-// 1. Chuyển đổi Section (Thông tin / Lịch sử / Cài đặt)
-function showSection(sectionId) {
-  // Ẩn tất cả section
-  document
-    .querySelectorAll(".content-section")
-    .forEach((sec) => sec.classList.remove("active-section"));
-  // Bỏ active tất cả menu item
-  document
-    .querySelectorAll(".profile-menu .menu-item")
-    .forEach((btn) => btn.classList.remove("active"));
+document.addEventListener("DOMContentLoaded", function () {
+  // Kiểm tra nếu đang ở trang có form profile thì mới chạy
+  if (document.getElementById("profile-form")) {
+    loadUserDataToProfile();
+  }
+});
 
-  // Hiện section được chọn
-  const target = document.getElementById("section-" + sectionId);
-  if (target) target.classList.add("active-section");
+/**
+ * 1. NẠP DỮ LIỆU USER VÀO FORM
+ */
+function loadUserDataToProfile() {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  // Active menu item tương ứng
-  // (Mẹo: Tìm nút có onclick chứa id section)
-  const activeBtn = document.querySelector(
-    `.profile-menu .menu-item[onclick*="${sectionId}"]`
-  );
-  if (activeBtn) activeBtn.classList.add("active");
+  if (!currentUser) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  // 1. Hiển thị Tên ở Sidebar
+  const displayName = document.getElementById("user-display-name");
+  if (displayName) displayName.innerText = currentUser.name;
+
+  // 2. Điền thông tin vào các ô Input
+  const nameInput = document.getElementById("profile-name");
+  const phoneInput = document.getElementById("profile-phone");
+  const emailInput = document.getElementById("profile-email");
+  const addressInput = document.getElementById("profile-address");
+
+  // --- QUAN TRỌNG: Chỉ điền đúng dữ liệu ---
+  if (nameInput) nameInput.value = currentUser.name || "";
+  if (phoneInput) phoneInput.value = currentUser.phone || "";
+
+  // Kiểm tra kỹ: Nếu email chưa có thì để rỗng, KHÔNG ĐƯỢC lấy phone điền vào
+  if (emailInput) {
+    emailInput.value = currentUser.email || "";
+  }
+
+  if (addressInput) addressInput.value = currentUser.address || "";
+
+  // 3. --- XỬ LÝ LỖI HIỆN MẬT KHẨU ---
+  // Tìm các ô mật khẩu và ép chúng rỗng (reset)
+  const newPass = document.getElementById("new-pass");
+  const confirmPass = document.getElementById("confirm-pass");
+
+  if (newPass) newPass.value = ""; // Xóa trắng ô mật khẩu mới
+  if (confirmPass) confirmPass.value = ""; // Xóa trắng ô xác nhận
 }
 
-// 2. Xem trước Avatar khi upload
-function previewAvatar(input) {
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      document.getElementById("user-avatar").src = e.target.result;
-      showToast("Ảnh đại diện đã được cập nhật!", "success");
-    };
-    reader.readAsDataURL(input.files[0]);
+/**
+ * 2. CẬP NHẬT THÔNG TIN & MẬT KHẨU
+ */
+function updateProfile() {
+  // Lấy dữ liệu từ form
+  const name = document.getElementById("profile-name").value;
+  const email = document.getElementById("profile-email").value;
+  const address = document.getElementById("profile-address").value;
+
+  const newPass = document.getElementById("new-pass").value;
+  const confirmPass = document.getElementById("confirm-pass").value;
+
+  // Lấy user hiện tại
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  // --- Xử lý đổi mật khẩu (Nếu có nhập) ---
+  if (newPass) {
+    if (newPass !== confirmPass) {
+      showToast("Mật khẩu xác nhận không khớp!", "error"); // Giả sử bạn có hàm showToast
+      return;
+    }
+    currentUser.pass = newPass; // Cập nhật pass mới
+  }
+
+  // --- Cập nhật thông tin cá nhân ---
+  currentUser.name = name;
+  currentUser.email = email;
+  currentUser.address = address;
+
+  // 1. Lưu vào Session (Đăng nhập hiện tại)
+  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+  // 2. Lưu vào Database giả (localStorage danh sách users)
+  let users = JSON.parse(localStorage.getItem("hcmc_users")) || [];
+  const index = users.findIndex((u) => u.phone === currentUser.phone);
+
+  if (index !== -1) {
+    users[index] = currentUser; // Cập nhật trong danh sách tổng
+    localStorage.setItem("hcmc_users", JSON.stringify(users));
+  }
+
+  // Thông báo và load lại giao diện
+  alert("Cập nhật hồ sơ thành công!");
+  loadUserDataToProfile(); // Load lại để cập nhật sidebar
+
+  // Reset ô mật khẩu để bảo mật
+  document.getElementById("new-pass").value = "";
+  document.getElementById("confirm-pass").value = "";
+}
+
+/**
+ * 3. ẨN/HIỆN MẬT KHẨU (Fix lỗi hiện pass text)
+ */
+function togglePass(inputId) {
+  const input = document.getElementById(inputId);
+  const icon = input.parentElement.querySelector(".show-pass-icon");
+
+  if (input.type === "password") {
+    input.type = "text"; // Hiện mật khẩu
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    input.type = "password"; // Ẩn mật khẩu
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
   }
 }
+/* ==========================================================================
+   8. CHECK LOGIN STATUS (Hiển thị tên người dùng trên trang chủ)
+   ========================================================================== */
 
-// 3. Hiển thị thông báo Toast
-function showToast(message, type = "success") {
-  const container = document.getElementById("toast-container");
-  const toast = document.createElement("div");
-  toast.className = `toast ${type}`;
-  toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${message}</span>`;
+document.addEventListener("DOMContentLoaded", function () {
+  // 1. Lấy thông tin user đang đăng nhập từ LocalStorage
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  container.appendChild(toast);
+  // 2. Lấy vị trí nút hiển thị tên trên Header
+  const userBtn = document.getElementById("header-user-name");
 
-  // Tự động xóa sau 3 giây
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
+  // 3. Nếu tìm thấy user và nút userBtn tồn tại
+  if (currentUser && userBtn) {
+    // Thay đổi nội dung nút thành tên người dùng
+    // Lấy tên đầu tiên để cho ngắn gọn (Ví dụ: "Nguyễn Văn A" -> "A")
+    const shortName = currentUser.name.split(" ").pop();
+    userBtn.innerHTML = `<i class="fa-solid fa-user"></i> Chào, ${shortName}`;
+  }
+});
+
+/**
+ * Hàm Đăng xuất (Bạn có thể gắn hàm này vào một nút "Đăng xuất" trong trang tai-khoan.html)
+ */
+function handleLogout() {
+  if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+    localStorage.removeItem("currentUser"); // Xóa session
+    window.location.href = "login.html"; // Quay về trang đăng nhập
+  }
 }
-
-// 4. Toggle Password (Đã có trong code cũ, đảm bảo nó hoạt động cho cả form này)
-// (Hàm togglePass ở trên đã ok)

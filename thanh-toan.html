@@ -31,7 +31,12 @@
           <a href="booking.html" class="active">Mua vé</a>
           <a href="tin-tuc.html">Tin tức</a>
           <a href="ho-tro.html">Hỗ trợ</a>
-          <a href="tai-khoan.html" class="btn-login">Tài khoản</a>
+          <a
+            href="tai-khoan.html"
+            id="header-user-name"
+            class="btn-login active-btn"
+            >Tài khoản</a
+          >
         </nav>
       </div>
     </header>
@@ -58,10 +63,7 @@
             <label class="method-card">
               <input type="radio" name="payment" value="momo" checked />
               <div class="card-content">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
-                  alt="Momo"
-                />
+                <img src="./img/momo.png" alt="Momo" />
                 <div class="method-info">
                   <h4>Ví điện tử MoMo</h4>
                   <p>Quét mã QR để thanh toán nhanh chóng</p>
@@ -73,10 +75,7 @@
             <label class="method-card">
               <input type="radio" name="payment" value="card" />
               <div class="card-content">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/179/179457.png"
-                  alt="Visa/Master"
-                />
+                <img src="./img/visa.webp" alt="Visa/Master" />
                 <div class="method-info">
                   <h4>Thẻ Quốc tế (Visa/Master)</h4>
                   <p>Thẻ tín dụng hoặc ghi nợ quốc tế</p>
@@ -88,10 +87,7 @@
             <label class="method-card">
               <input type="radio" name="payment" value="atm" />
               <div class="card-content">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/2335/2335447.png"
-                  alt="ATM"
-                />
+                <img src="./img/atm_noidia.png" alt="ATM" />
                 <div class="method-info">
                   <h4>Thẻ ATM Nội địa</h4>
                   <p>Internet Banking các ngân hàng Việt Nam</p>
@@ -107,26 +103,25 @@
             <h3>Thông tin vé</h3>
             <div class="summary-row">
               <span>Hành trình:</span>
-              <strong>Bến Thành → Suối Tiên</strong>
+              <strong id="pay-route">Đang tải...</strong>
             </div>
             <div class="summary-row">
               <span>Loại vé:</span>
-              <span>Một chiều</span>
+              <span id="pay-type">...</span>
             </div>
             <div class="summary-row">
               <span>Hành khách:</span>
-              <span>01 Người lớn</span>
+              <span id="pay-passenger">...</span>
             </div>
             <div class="summary-row">
               <span>Ngày đi:</span>
-              <span>Hôm nay</span>
+              <span id="pay-date">Hôm nay</span>
             </div>
             <hr />
             <div class="summary-total">
               <span>Tổng thanh toán:</span>
-              <span class="price">12.000 đ</span>
+              <span class="price" id="pay-total">0 đ</span>
             </div>
-
             <button class="btn-pay" onclick="processPayment()">
               THANH TOÁN NGAY <i class="fa-solid fa-arrow-right"></i>
             </button>

@@ -55,10 +55,11 @@
             <p class="auth-desc">Nhập thông tin để truy cập ví vé của bạn.</p>
 
             <div class="input-field">
-              <i class="fa-solid fa-envelope"></i>
+              <i class="fa-solid fa-phone"></i>
               <input
-                type="email"
-                placeholder="Email hoặc Số điện thoại"
+                type="text"
+                id="login-username"
+                placeholder="Số điện thoại đã đăng ký"
                 required
               />
             </div>
@@ -82,7 +83,7 @@
               <a href="#">Quên mật khẩu?</a>
             </div>
 
-            <button type="button" class="btn-submit" onclick="demoLogin()">
+            <button type="button" class="btn-submit" onclick="handleLogin()">
               ĐĂNG NHẬP
             </button>
 
@@ -107,12 +108,22 @@
 
             <div class="input-field">
               <i class="fa-solid fa-user"></i>
-              <input type="text" placeholder="Họ và tên" required />
+              <input
+                type="text"
+                id="reg-name"
+                placeholder="Họ và tên"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fa-solid fa-phone"></i>
-              <input type="tel" placeholder="Số điện thoại" required />
+              <input
+                type="tel"
+                id="reg-phone"
+                placeholder="Số điện thoại"
+                required
+              />
             </div>
 
             <div class="input-field">
@@ -131,14 +142,19 @@
 
             <div class="input-field">
               <i class="fa-solid fa-lock"></i>
-              <input type="password" placeholder="Nhập lại mật khẩu" required />
+              <input
+                type="password"
+                id="reg-confirm-pass"
+                placeholder="Nhập lại mật khẩu"
+                required
+              />
+              <i
+                class="fa-solid fa-eye show-pass"
+                onclick="togglePass('reg-pass')"
+              ></i>
             </div>
 
-            <button
-              type="button"
-              class="btn-submit"
-              onclick="alert('Đăng ký thành công!')"
-            >
+            <button type="button" class="btn-submit" onclick="handleRegister()">
               ĐĂNG KÝ NGAY
             </button>
           </form>

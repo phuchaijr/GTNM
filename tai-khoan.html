@@ -22,18 +22,23 @@
 
     <header id="main-header">
       <div class="container header-content">
-        <a href="index.html" class="logo"
+        <a href="trangchu.html" class="logo"
           ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
         >
         <div class="mobile-menu-btn" onclick="toggleMenu()">
           <i class="fa-solid fa-bars"></i>
         </div>
         <nav class="nav-links" id="navLinks">
-          <a href="index.html">Trang chủ</a>
+          <a href="trangchu.html">Trang chủ</a>
           <a href="booking.html">Mua vé</a>
           <a href="tin-tuc.html">Tin tức</a>
           <a href="ho-tro.html">Hỗ trợ</a>
-          <a href="tai-khoan.html" class="btn-login active-btn">Phúc Hải</a>
+          <a
+            href="tai-khoan.html"
+            id="header-user-name"
+            class="btn-login active-btn"
+            >Tài khoản</a
+          >
         </nav>
       </div>
     </header>
@@ -58,7 +63,7 @@
             <div class="avatar-wrapper">
               <img
                 id="user-avatar"
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
+                src=".//img/avatar.jpg"
                 alt="Avatar"
               />
               <input
@@ -75,7 +80,7 @@
                 <i class="fa-solid fa-camera"></i>
               </button>
             </div>
-            <h3>Nguyễn Phúc Hải</h3>
+            <h3 id="user-display-name">Khách</h3>
             <span class="member-badge"
               ><i class="fa-solid fa-crown"></i> Thành viên Vàng</span
             >
@@ -97,9 +102,9 @@
             <button class="menu-item" onclick="showSection('settings')">
               <i class="fa-solid fa-gear"></i> Cài đặt
             </button>
-            <a href="index.html" class="logout-btn"
-              ><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a
-            >
+            <a href="index.html" onclick="handleLogout()" class="logout-btn">
+              <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+            </a>
           </nav>
         </aside>
 
@@ -108,8 +113,9 @@
             <h3 class="card-title">Cập nhật thông tin</h3>
 
             <form
+              id="profile-form"
               class="profile-form"
-              onsubmit="event.preventDefault(); showToast('Đã lưu thay đổi thành công!', 'success');"
+              onsubmit="event.preventDefault(); updateProfile();"
             >
               <div class="form-row">
                 <div class="form-group">
@@ -118,8 +124,10 @@
                     <i class="fa-solid fa-user"></i>
                     <input
                       type="text"
-                      value="Nguyễn Văn A"
+                      id="profile-name"
+                      placeholder="Họ và tên"
                       class="form-input"
+                      required
                     />
                   </div>
                 </div>
@@ -128,33 +136,44 @@
                   <div class="input-with-icon">
                     <i class="fa-solid fa-phone"></i>
                     <input
-                      type="text"
-                      value="0987 654 321"
+                      type="tel"
+                      id="profile-phone"
+                      placeholder="Số điện thoại"
                       class="form-input"
+                      readonly
+                      style="background-color: #f9f9f9; cursor: not-allowed"
                     />
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <label>Email</label>
-                <div class="input-with-icon">
-                  <i class="fa-solid fa-envelope"></i>
-                  <input
-                    type="email"
-                    value="examp@email.com"
-                    class="form-input"
-                    readonly
-                    style="background-color: #f0f0f0; cursor: not-allowed"
-                  />
-                </div>
+                  <div class="form-group">
+                  <label>Email (Bổ sung)</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input 
+                      type="email" 
+                      id="profile-email" 
+                      placeholder="Thêm email của bạn" 
+                      class="form-input" 
+                      autocomplete="off"
+                    />
+                  </div>
+            </div>
+            </div>
               </div>
 
               <div class="form-group">
                 <label>Địa chỉ</label>
                 <div class="input-with-icon">
                   <i class="fa-solid fa-location-dot"></i>
-                  <input type="text" value="NLU, TP.HCM" class="form-input" />
+                  <input
+                    type="text"
+                    id="profile-address"
+                    placeholder="Nhập địa chỉ"
+                    class="form-input"
+                  />
                 </div>
               </div>
 
@@ -176,12 +195,14 @@
                     <label>Mật khẩu mới</label>
                     <div class="input-with-icon">
                       <i class="fa-solid fa-lock"></i>
-                      <input
-                        type="password"
-                        id="new-pass"
-                        placeholder="Nhập mật khẩu mới"
+                      <input 
+                        type="password" 
+                        id="new-pass" 
+                        placeholder="Nhập mật khẩu mới" 
                         class="form-input"
+                        autocomplete="new-password" 
                       />
+                      <i class="fa-solid fa-eye show-pass-icon" onclick="togglePass('new-pass')"></i>
                     </div>
                   </div>
                   <div class="form-group">
@@ -194,6 +215,11 @@
                         placeholder="Nhập lại mật khẩu"
                         class="form-input"
                       />
+                      <i
+                        class="fa-solid fa-eye show-pass-icon"
+                        onclick="togglePass('confirm-pass')"
+                        style="cursor: pointer; position: absolute; right: 10px"
+                      ></i>
                     </div>
                   </div>
                 </div>
@@ -203,7 +229,7 @@
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  onclick="this.closest('form').reset()"
+                  onclick="loadUserDataToProfile()"
                 >
                   Hủy bỏ
                 </button>
@@ -212,52 +238,6 @@
                 </button>
               </div>
             </form>
-          </div>
-
-          <div id="section-history" class="content-section">
-            <h3 class="card-title">Lịch sử giao dịch</h3>
-            <div class="history-list">
-              <div class="history-item">
-                <div class="his-icon bg-green">
-                  <i class="fa-solid fa-check"></i>
-                </div>
-                <div class="his-info">
-                  <h4>Mua vé thành công</h4>
-                  <span>Bến Thành - Suối Tiên • 1 Vé</span>
-                </div>
-                <div class="his-price">-12.000đ</div>
-                <div class="his-date">20/10/2024</div>
-              </div>
-              <div class="history-item">
-                <div class="his-icon bg-blue">
-                  <i class="fa-solid fa-wallet"></i>
-                </div>
-                <div class="his-info">
-                  <h4>Nạp tiền vào ví</h4>
-                  <span>Qua Momo</span>
-                </div>
-                <div class="his-price plus">+100.000đ</div>
-                <div class="his-date">18/10/2024</div>
-              </div>
-            </div>
-          </div>
-
-          <div id="section-settings" class="content-section">
-            <h3 class="card-title">Cài đặt chung</h3>
-            <div class="setting-item">
-              <span>Nhận thông báo qua Email</span>
-              <label class="switch">
-                <input type="checkbox" checked />
-                <span class="slider round"></span>
-              </label>
-            </div>
-            <div class="setting-item">
-              <span>Giao diện tối (Dark Mode)</span>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider round"></span>
-              </label>
-            </div>
           </div>
         </main>
       </div>
