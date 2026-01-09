@@ -2129,7 +2129,15 @@ input:checked + .slider:before {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
+@media (min-width: 992px) {
+  .mobile-menu-btn,
+  .menu-toggle,
+  .hamburger,
+  .navbar-toggle,
+  .fa-bars {
+    display: none !important; /* Bắt buộc ẩn */
+  }
+}
 /* =========================================
    10. MODAL & AUTH FORM 
    ========================================= */
