@@ -2399,3 +2399,63 @@ input:checked + .slider:before {
   display: block;
   animation: fadeIn 0.3s ease;
 }
+/* 1. XỬ LÝ ICON TRONG Ô NHẬP LIỆU (Login, Register, Profile) */
+.input-field,
+.input-with-icon {
+  position: relative !important; /* Làm mốc tọa độ */
+}
+
+/* Căn giữa icon theo chiều dọc */
+.input-field > i,
+.input-with-icon > i {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important; /* Công thức căn giữa chuẩn nhất */
+  left: 15px !important; /* Cách lề trái 1 chút */
+
+  /* Đảm bảo icon không bị méo */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin: 0 !important; /* Xóa margin thừa nếu có */
+  z-index: 10; /* Nổi lên trên input */
+  pointer-events: none; /* Để bấm xuyên qua icon vào ô input */
+}
+
+/* Đẩy chữ trong ô input sang phải để không đè lên icon */
+.input-field input,
+.form-input {
+  padding-left: 45px !important; /* Chừa chỗ cho icon */
+  width: 100%;
+}
+
+/* Icon con mắt (Hiện mật khẩu) nằm bên phải */
+.input-field .show-pass,
+.show-pass-icon {
+  left: auto !important; /* Bỏ căn trái */
+  right: 15px !important; /* Căn sang phải */
+  cursor: pointer !important;
+  pointer-events: auto !important; /* Cho phép click */
+}
+
+/* 2. XỬ LÝ ICON TRONG MENU TÀI KHOẢN (SIDEBAR) */
+.profile-menu a,
+.profile-menu .menu-item {
+  display: flex !important;
+  align-items: center !important; /* Căn giữa dọc */
+  gap: 15px; /* Khoảng cách giữa icon và chữ */
+}
+
+.profile-menu a i,
+.profile-menu .menu-item i {
+  /* Cố định chiều rộng icon để chữ thẳng hàng tăm tắp */
+  width: 25px !important;
+  text-align: center !important;
+
+  /* Căn giữa icon trong khung của nó */
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
