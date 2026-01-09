@@ -2,11 +2,6 @@
    1. GLOBAL LOGIC (Dùng chung cho tất cả các trang)
    ========================================================================== */
 
-/**
- * Xử lý Menu Mobile (Hamburger)
- * - Đổi icon 3 gạch thành dấu X
- * - Trượt menu xuống
- */
 function toggleMenu() {
   const nav = document.getElementById("navLinks");
   const btn = document.querySelector(".mobile-menu-btn");
@@ -340,6 +335,75 @@ if (accordions.length > 0) {
    ========================================================================== */
 
 /**
+ * 1. NẠP DỮ LIỆU USER VÀO FORM (Đã sửa để xử lý khách)
+ */
+function loadUserDataToProfile() {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  // NẾU KHÔNG CÓ NGƯỜI DÙNG (ĐÃ ĐĂNG XUẤT)
+  if (!currentUser) {
+    resetToGuestMode(); // Gọi hàm reset giao diện về Khách
+    return;
+  }
+
+  // NẾU CÓ NGƯỜI DÙNG -> HIỆN THÔNG TIN
+  // 1. Hiển thị Tên ở Sidebar
+  const displayName = document.getElementById("user-display-name");
+  if (displayName) displayName.innerText = currentUser.name;
+
+  // Hiển thị huy hiệu thành viên
+  const badge = document.querySelector(".member-badge");
+  if (badge) badge.style.display = "inline-block";
+
+  // 2. Điền thông tin vào các ô Input
+  const nameInput = document.getElementById("profile-name");
+  const phoneInput = document.getElementById("profile-phone");
+  const emailInput = document.getElementById("profile-email");
+  const addressInput = document.getElementById("profile-address");
+
+  if (nameInput) nameInput.value = currentUser.name || "";
+  if (phoneInput) phoneInput.value = currentUser.phone || "";
+  if (emailInput) emailInput.value = currentUser.email || "";
+  if (addressInput) addressInput.value = currentUser.address || "";
+
+  // 3. Reset ô mật khẩu
+  if (document.getElementById("new-pass"))
+    document.getElementById("new-pass").value = "";
+  if (document.getElementById("confirm-pass"))
+    document.getElementById("confirm-pass").value = "";
+}
+
+/**
+ * HÀM MỚI: Đưa giao diện về trạng thái Khách (Trắng thông tin)
+ */
+function resetToGuestMode() {
+  // 1. Sidebar về Khách
+  const displayName = document.getElementById("user-display-name");
+  if (displayName) displayName.innerText = "Khách";
+
+  // Ẩn huy hiệu thành viên
+  const badge = document.querySelector(".member-badge");
+  if (badge) badge.style.display = "none";
+
+  // Về avatar mặc định
+  const avatar = document.getElementById("user-avatar");
+  if (avatar) avatar.src = "./img/avatar.jpg"; // Hoặc ảnh mặc định của bạn
+
+  // 2. Xóa trắng form input
+  const inputs = document.querySelectorAll(".profile-form input");
+  inputs.forEach((input) => {
+    input.value = "";
+  });
+
+  // 3. Cập nhật nút trên Header (nếu có)
+  const userBtn = document.getElementById("header-user-name");
+  if (userBtn) {
+    userBtn.innerText = "Tài khoản";
+    userBtn.href = "login.html"; // Bấm vào sẽ dẫn tới đăng nhập
+  }
+}
+
+/**
  * Ẩn/Hiện phần Bảo mật & Mật khẩu
  */
 function toggleSecurity() {
@@ -662,9 +726,22 @@ document.addEventListener("DOMContentLoaded", function () {
 /**
  * Hàm Đăng xuất (Bạn có thể gắn hàm này vào một nút "Đăng xuất" trong trang tai-khoan.html)
  */
-function handleLogout() {
+/**
+ * Hàm Đăng xuất (Đã sửa lỗi logic)
+ */
+function handleLogout(event) {
+  // Ngăn chặn hành vi mặc định của thẻ a (chuyển trang)
+  if (event) event.preventDefault();
+
   if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-    localStorage.removeItem("currentUser"); // Xóa session
-    window.location.href = "login.html"; // Quay về trang đăng nhập
+    // 1. Xóa session
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("isLoggedIn");
+
+    // 2. Reset giao diện về Khách ngay lập tức
+    resetToGuestMode();
+
+    // 3. Thông báo
+    alert("Đăng xuất thành công! Giao diện đã trở về trạng thái Khách.");
   }
 }
