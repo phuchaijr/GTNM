@@ -302,7 +302,7 @@ function handleLogin() {
 
     // --- CHUYỂN HƯỚNG TRANG ---
     // Đảm bảo file trang chủ của bạn tên là "trangchu.html"
-    window.location.href = "trangchu.html";
+    window.location.href = "index.html";
   } else {
     alert("Sai số điện thoại hoặc mật khẩu! (Hoặc tài khoản chưa đăng ký)");
   }

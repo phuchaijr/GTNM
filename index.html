@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Đăng nhập - HCMC Metro</title>
+    <title>HCMC Metro - Trang chủ</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -20,148 +20,298 @@
   <body>
     <header id="main-header">
       <div class="container header-content">
-        <a href="trangchu.html" class="logo"
-          ><i class="fa-solid fa-train-subway"></i> HCMC METRO</a
-        >
+        <a href="index.html" class="logo">
+          <i class="fa-solid fa-train-subway"></i> HCMC METRO
+        </a>
         <div class="mobile-menu-btn" onclick="toggleMenu()">
           <i class="fa-solid fa-bars"></i>
         </div>
         <nav class="nav-links" id="navLinks">
-          <a href="trangchu.html">Trang chủ</a>
+          <a href="index.html" class="active">Trang chủ</a>
           <a href="booking.html">Mua vé</a>
           <a href="tin-tuc.html">Tin tức</a>
           <a href="ho-tro.html">Hỗ trợ</a>
-          <a href="tai-khoan.html" class="btn-login active-btn">Tài khoản</a>
+          <a
+            href="tai-khoan.html"
+            id="header-user-name"
+            class="btn-login active-btn"
+            >Tài khoản</a
+          >
         </nav>
       </div>
     </header>
 
-    <section class="auth-section">
-      <div class="auth-overlay"></div>
-
-      <div class="auth-container">
-        <div class="auth-box">
-          <div class="auth-tabs">
-            <button class="tab-btn active" onclick="switchTab('login')">
-              Đăng nhập
-            </button>
-            <button class="tab-btn" onclick="switchTab('register')">
-              Đăng ký
-            </button>
-          </div>
-
-          <form id="login-form" class="auth-form active-form">
-            <h2>Chào mừng trở lại!</h2>
-            <p class="auth-desc">Nhập thông tin để truy cập ví vé của bạn.</p>
-
-            <div class="input-field">
-              <i class="fa-solid fa-phone"></i>
-              <input
-                type="text"
-                id="login-username"
-                placeholder="Số điện thoại đã đăng ký"
-                required
-              />
-            </div>
-
-            <div class="input-field">
-              <i class="fa-solid fa-lock"></i>
-              <input
-                type="password"
-                id="login-pass"
-                placeholder="Mật khẩu"
-                required
-              />
-              <i
-                class="fa-solid fa-eye show-pass"
-                onclick="togglePass('login-pass')"
-              ></i>
-            </div>
-
-            <div class="form-options">
-              <label><input type="checkbox" /> Ghi nhớ tôi</label>
-              <a href="#">Quên mật khẩu?</a>
-            </div>
-
-            <button type="button" class="btn-submit" onclick="handleLogin()">
-              ĐĂNG NHẬP
-            </button>
-
-            <div class="social-login">
-              <p>Hoặc đăng nhập bằng</p>
-              <div class="social-icons">
-                <a href="#" class="icon-google"
-                  ><i class="fa-brands fa-google"></i
-                ></a>
-                <a href="#" class="icon-facebook"
-                  ><i class="fa-brands fa-facebook-f"></i
-                ></a>
-              </div>
-            </div>
-          </form>
-
-          <form id="register-form" class="auth-form">
-            <h2>Tạo tài khoản mới</h2>
-            <p class="auth-desc">
-              Đăng ký để tích điểm và đi tàu tiện lợi hơn.
-            </p>
-
-            <div class="input-field">
-              <i class="fa-solid fa-user"></i>
-              <input
-                type="text"
-                id="reg-name"
-                placeholder="Họ và tên"
-                required
-              />
-            </div>
-
-            <div class="input-field">
-              <i class="fa-solid fa-phone"></i>
-              <input
-                type="tel"
-                id="reg-phone"
-                placeholder="Số điện thoại"
-                required
-              />
-            </div>
-
-            <div class="input-field">
-              <i class="fa-solid fa-lock"></i>
-              <input
-                type="password"
-                id="reg-pass"
-                placeholder="Mật khẩu"
-                required
-              />
-              <i
-                class="fa-solid fa-eye show-pass"
-                onclick="togglePass('reg-pass')"
-              ></i>
-            </div>
-
-            <div class="input-field">
-              <i class="fa-solid fa-lock"></i>
-              <input
-                type="password"
-                id="reg-confirm-pass"
-                placeholder="Nhập lại mật khẩu"
-                required
-              />
-              <i
-                class="fa-solid fa-eye show-pass"
-                onclick="togglePass('reg-pass')"
-              ></i>
-            </div>
-
-            <button type="button" class="btn-submit" onclick="handleRegister()">
-              ĐĂNG KÝ NGAY
-            </button>
-          </form>
-        </div>
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-text">
+        <h1>Di chuyển thông minh<br />Cùng Metro Connect</h1>
       </div>
     </section>
+    <div class="main-content">
+      <div class="container">
+        <div class="features-grid">
+          <a
+            href="ve-cua-toi.html"
+            class="feature-item"
+            style="text-decoration: none"
+          >
+            <div class="icon-box"><i class="fa-solid fa-ticket"></i></div>
+            <span>Vé của tôi</span>
+          </a>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
+            <span>Ví của tôi</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-qrcode"></i></div>
+            <span>Đổi mã</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-circle-info"></i></div>
+            <span>Info Vé</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <span>Hành trình</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-mountain-sun"></i></div>
+            <span>Suối Tiên</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-credit-card"></i></div>
+            <span>Card IC</span>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fa-solid fa-user"></i></div>
+            <span>Tài khoản</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">🔥 Vé nổi bật</h3>
+        <div class="ticket-list">
+          <div class="ticket-card">
+            <div class="ticket-info">
+              <i class="fa-solid fa-ticket ticket-icon"></i>
+              <div class="ticket-details">
+                <h3>Vé 1 ngày</h3>
+                <p>40.000 đ</p>
+              </div>
+            </div>
+            <button class="btn-buy">Mua ngay</button>
+          </div>
+          <div class="ticket-card">
+            <div class="ticket-info">
+              <i class="fa-solid fa-ticket ticket-icon"></i>
+              <div class="ticket-details">
+                <h3>Vé 3 ngày</h3>
+                <p>90.000 đ</p>
+              </div>
+            </div>
+            <button class="btn-buy">Mua ngay</button>
+          </div>
+        </div>
+
+        <h3 class="section-title">🗺️ Mạng lưới các ga (Tuyến số 1)</h3>
+        <div class="station-list-view">
+          <div class="list-item">
+            <span class="station-text"
+              >Ga 1: <b>Bến Thành</b>
+              <span class="badge-subway">Ngầm</span></span
+            >
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text"
+              >Ga 2: <b>Nhà hát Thành phố</b>
+              <span class="badge-subway">Ngầm</span></span
+            >
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text"
+              >Ga 3: <b>Ba Son</b> <span class="badge-subway">Ngầm</span></span
+            >
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+
+          <div class="list-item">
+            <span class="station-text">Ga 4: <b>Văn Thánh</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 5: <b>Tân Cảng</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 6: <b>Thảo Điền</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 7: <b>An Phú</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 8: <b>Rạch Chiếc</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 9: <b>Phước Long</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 10: <b>Bình Thái</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 11: <b>Thủ Đức</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 12: <b>Khu Công nghệ cao</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 13: <b>Đại học Quốc gia</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+          <div class="list-item">
+            <span class="station-text">Ga 14: <b>Bến xe Suối Tiên</b></span>
+            <i class="fa-solid fa-chevron-right" style="color: #ccc"></i>
+          </div>
+        </div>
+
+        <div style="height: 60px"></div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-col">
+          <h3>HCMC METRO</h3>
+          <p>
+            Hệ thống đường sắt đô thị hiện đại, an toàn và thân thiện với môi
+            trường, góp phần nâng cao chất lượng cuộc sống người dân TP.HCM.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Về chúng tôi</h3>
+          <ul>
+            <li>
+              <a href="index.html"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Giới thiệu chung</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Cơ cấu tổ chức</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Tuyển dụng</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Dịch vụ</h3>
+          <ul>
+            <li>
+              <a href="booking.html"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Mua vé trực tuyến</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Bản đồ nhà ga</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Lịch trình tàu</a
+              >
+            </li>
+            <li>
+              <a href="ho-tro.html"
+                ><i
+                  class="fa-solid fa-chevron-right"
+                  style="font-size: 0.7rem"
+                ></i>
+                Trung tâm hỗ trợ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Liên hệ</h3>
+          <ul>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-location-dot"></i> NLU, TP.HCM</a
+              >
+            </li>
+            <li>
+              <a href="tel:19001234"
+                ><i class="fa-solid fa-phone"></i> 1900 1234</a
+              >
+            </li>
+            <li>
+              <a href="mailto:info@hcmcmetro.vn"
+                ><i class="fa-solid fa-envelope"></i> phuchai@hcmcmetro.vn</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>&copy; 2024 Metro Connect TP.HCM. Designed by Phuc Hai.</p>
+      </div>
+    </footer>
   </body>
 </html>
