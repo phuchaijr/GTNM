@@ -59,7 +59,7 @@ body {
    2. HEADER & NAVIGATION
    ========================================= */
 header {
-  position: fixed; /* Dùng fixed để header luôn trôi theo màn hình */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -519,7 +519,7 @@ header.header-scrolled {
    6. LISTS & TICKETS STYLE
    ========================================= */
 
-/* Station List (Gộp chung code để tránh trùng lặp) */
+/* Station List */
 .station-list-view,
 .station-list {
   background: var(--white);
